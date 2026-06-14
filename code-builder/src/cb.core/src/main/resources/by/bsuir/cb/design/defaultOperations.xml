@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operationPicker
+    xmlns="http://www.codeBuilder.by/codeBuilder"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.codeBuilder.by/codeBuilder operationSchema.xsd ">
+    <category>
+        <title>Basic</title>
+        <operation>
+            <name>End</name>
+            <node>
+                <type>end</type>
+                <keywords>
+                    <keyword>
+                        <keywordName>returnValue</keywordName>
+                        <keywordType>.*</keywordType>
+                    </keyword>
+                </keywords>
+                <template><![CDATA[return ${returnValue};]]>
+                </template>
+            </node>
+            <description>Method end point. Additing any operation after
+                `End` will cause an error
+            </description>
+            <iconPath>operations/begin_end.gif</iconPath>
+        </operation>
+
+        <operation>
+            <name>Initialization</name>
+            <node>
+                <type>template</type>
+                <keywords>
+                    <keyword>
+                        <keywordName>destination</keywordName>
+                        <keywordType>.*</keywordType>
+                    </keyword>
+                    <keyword>
+                        <keywordName>initialization</keywordName>
+                        <keywordType>.*</keywordType>
+                    </keyword>
+                </keywords>
+                <template><![CDATA[${destination} = ${initialization};]]>
+                </template>
+            </node>
+            <description>Initialize value with another value</description>
+            <iconPath>operations/function.gif</iconPath>
+        </operation>
+    </category>
+    <category>
+        <title>Conditions</title>
+        <operation>
+            <name>If</name>
+            <node>
+                <type>condition</type>
+                <keywords>
+                    <keyword>
+                        <keywordName>condition</keywordName>
+                        <keywordType>java.lang.Boolean</keywordType>
+                    </keyword>
+                    <keyword>
+                        <keywordName>true</keywordName>
+                        <keywordType>conditionResult</keywordType>
+                    </keyword>
+                    <keyword>
+                        <keywordName>false</keywordName>
+                        <keywordType>conditionResult</keywordType>
+                    </keyword>
+                </keywords>
+                <template><![CDATA[if(${condition}) {${true}} else {${false}}]]>
+                </template>
+            </node>
+            <description>Input values section</description>
+            <iconPath>operations/condition.gif</iconPath>
+        </operation>
+    </category>
+    <category>
+        <title>Input/Output</title>
+        <operation>
+            <name>Console input</name>
+            <node>
+                <type>template</type>
+                <keywords>
+                    <keyword>
+                        <keywordName>value</keywordName>
+                        <keywordType>java.lang.String</keywordType>
+                    </keyword>
+                </keywords>
+                <template><![CDATA[
+BufferedReader br = null;
+try {
+    br = new BufferedReader(new InputStreamReader(System.in));
+    ${value} = br.readLine(); 
+} catch (IOException e) { 
+    e.printStackTrace();
+} finally { 
+    if (br != null) { 
+        try { 
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } 
+    } 
+}]]>
+                </template>
+            </node>
+            <description>Input value from console</description>
+            <iconPath>operations/input_output.gif</iconPath>
+        </operation>
+        <operation>
+            <name>Console output</name>
+            <node>
+                <type>template</type>
+                <keywords>
+                    <keyword>
+                        <keywordName>value</keywordName>
+                        <keywordType>java.lang.String</keywordType>
+                    </keyword>
+                </keywords>
+                <template><![CDATA[System.out.println(${value});]]>
+                </template>
+            </node>
+            <description>Output value on console</description>
+            <iconPath>operations/function.gif</iconPath>
+        </operation>
+    </category>
+    <category>
+        <title>Min/Max</title>
+        <operation>
+            <name>minString</name>
+            <node>
+                <type>template</type>
+                <keywords>
+                    <keyword>
+                        <keywordName>collection</keywordName>
+                        <keywordType>java.util.List</keywordType>
+                    </keyword>
+                    <keyword>
+                        <keywordName>destination</keywordName>
+                        <keywordType>java.lang.String</keywordType>
+                    </keyword>
+                </keywords>
+                <template><![CDATA[
+if(!${collection}.isEmpty()) {
+   ${destination} = ${collection}.get(0);
+   for(String string: ${collection}) {
+       if(string.length() < ${destination}.length()) {
+           ${destination} = string; 
+       }
+   }
+} else {
+    ${destination} = null;
+}]]>
+                </template>
+            </node>
+            <description>Find minimal string</description>
+            <iconPath>operations/function.gif</iconPath>
+        </operation>
+        <operation>
+            <name>maxString</name>
+            <node>
+                <type>template</type>
+                <keywords>
+                    <keyword>
+                        <keywordName>collection</keywordName>
+                        <keywordType>java.util.List</keywordType>
+                    </keyword>
+                    <keyword>
+                        <keywordName>destination</keywordName>
+                        <keywordType>java.lang.String</keywordType>
+                    </keyword>
+                </keywords>
+                <template><![CDATA[
+if(!${collection}.isEmpty()) {
+   ${destination} = ${collection}.get(0);
+   for(String string: ${collection}) {
+       if(string.length() > ${destination}.length()) {
+           ${destination} = string; 
+       }
+   }
+} else {
+    ${destination} = null;
+}]]>
+                </template>
+            </node>
+            <description>Find maximal string</description>
+            <iconPath>operations/function.gif</iconPath>
+        </operation>
+    </category>
+    <category>
+        <title>Sorting</title>
+        <operation>
+            <name>BubbleSort</name>
+            <node>
+                <type>template</type>
+                <keywords>
+                    <keyword>
+                        <keywordName>array</keywordName>
+                        <keywordType>Object[]</keywordType>
+                    </keyword>
+                </keywords>
+                <template><![CDATA[
+int n = ${array}.length;
+int temp = 0; 
+for (int i = 0; i < n; i++) {
+    for (int j = 1; j < (n - i); j++) {
+        if (arr[j - 1] > arr[j]) {
+            temp = ${array}[j - 1];
+            ${array}[j - 1] = ${array}[j];
+            ${array}[j] = temp;
+        }
+    }
+}]]>
+                </template>
+            </node>
+            <description>Use bubble sort algorithm</description>
+            <iconPath>operations/function.gif</iconPath>
+        </operation>
+        <operation>
+            <name>QuickSort</name>
+            <node>
+                <type>template</type>
+                <keywords>
+                    <keyword>
+                        <keywordName>array</keywordName>
+                        <keywordType>Object[]</keywordType>
+                    </keyword>
+                </keywords>
+                <template><![CDATA[
+int sub${array} = 0;
+Stack<Integer> stack = new Stack<>();
+stack.push(0);
+stack.push(${array}.length - 1);
+do {
+  int right = stack.pop();
+  int left = stack.pop();
+  --sub${array};
+  do {
+    int _left = left;
+    int _right = right;
+    int pivot = ${array}[(left + right) / 2];
+    do {
+      while (pivot < ${array}[_right]) {
+        _right--;
+      }
+      while (pivot > ${array}[_left]) {
+        _left++;
+      }
+      if (_left <= _right) {
+        if (_left != _right) {
+          int temp = ${array}[_left];
+          ${array}[_left] = ${array}[_right];
+          ${array}[_right] = temp;
+        }
+        _right--;
+        _left++;
+      }
+    } while (_right >= _left);
+    if (_left < right) {
+      ++sub${array};
+      stack.push(_left);
+      stack.push(right);
+    }
+    right = _right;
+  } while (left < right);
+} while (sub${array} > -1);]]>
+                </template>
+            </node>
+            <description>Use quicksort algorithm</description>
+            <iconPath>operations/function.gif</iconPath>
+        </operation>
+    </category>
+</operationPicker>

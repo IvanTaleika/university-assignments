@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS `horse_racing`;
+CREATE DATABASE `horse_racing` DEFAULT CHARACTER SET utf8;
